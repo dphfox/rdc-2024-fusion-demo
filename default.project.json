@@ -1,0 +1,12 @@
+{
+  "name": "RDC 2024 - Fusion Demo",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Shared": {
+        "$path": "src"
+      }
+    }
+  }
+}
