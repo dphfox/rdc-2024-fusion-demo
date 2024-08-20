@@ -1,4 +1,5 @@
 --!strict
+--!nolint LocalShadow
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
 local Package = script.Parent.Parent
@@ -11,28 +12,33 @@ local Box = require(Package.UI.Box)
 local Button = require(Package.UI.Button)
 
 local function CloseButton(
-	scope: Fusion.Scope<typeof(Fusion)>,
+	scope: Fusion.Scope,
 	props: {
-		OnClick: () -> ()
+		Position: Fusion.UsedAs<UDim2>?,
+		AnchorPoint: Fusion.UsedAs<Vector2>?,
+		Size: Fusion.UsedAs<UDim2>?,
+
+		OnActivated: () -> ()
 	}
 ): Fusion.Child
-	scope = scope:innerScope {
+	local scope = scope:innerScope {
 		Box = Box,
 		Button = Button
 	}
 
 	return scope:Box {
 		Name = "CloseButton",
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Position = UDim2.new(1, -12, 0, 12),
-		Size = UDim2.fromOffset(48, 48),
+		Position = props.Position,
+		AnchorPoint = props.AnchorPoint,
+		Size = props.Size,
 
 		[Children] = scope:Button {
 			Text = "X",
-			TextSize = Styles.textSize.bigger,
+			TextSize = Styles.textSizes.bigger,
 			Palette = Styles.colours.red,
 			Size = UDim2.fromOffset(48, 48),
-			OnClick = props.OnClick
+			
+			OnActivated = props.OnActivated
 		}
 	}
 end

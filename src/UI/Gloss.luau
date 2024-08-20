@@ -8,7 +8,7 @@ local Fusion = require(Package.Libraries.Fusion)
 local Styles = require(Package.UI.Styles)
 
 local function Gloss(
-	scope: Fusion.Scope<typeof(Fusion)>,
+	scope: Fusion.Scope,
 	props: {
 		Palette: Styles.Palette
 	}
@@ -16,12 +16,12 @@ local function Gloss(
 	return scope:New "UIGradient" {
 		Color = scope:Computed(function(use)
 			local palette = use(props.Palette)
-			return ColorSequence.new(
+			return ColorSequence.new {
 				ColorSequenceKeypoint.new(0, palette.fill.light),
 				ColorSequenceKeypoint.new(0.4, palette.fill.mid),
 				ColorSequenceKeypoint.new(0.6, palette.fill.dark),
 				ColorSequenceKeypoint.new(1, palette.fill.dark)
-			)
+			}
 		end),
 		Rotation = 90
 	}

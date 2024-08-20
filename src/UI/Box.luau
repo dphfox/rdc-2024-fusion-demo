@@ -5,6 +5,7 @@ local Package = script.Parent.Parent
 
 local Fusion = require(Package.Libraries.Fusion)
 local Children = Fusion.Children
+local OnEvent = Fusion.OnEvent
 
 local function Box(
 	scope: Fusion.Scope,
@@ -21,9 +22,9 @@ local function Box(
 		Transparency: Fusion.UsedAs<number>?,
 		Colour: Fusion.UsedAs<Color3>?,
 
-		Activated: nil | () -> (),
-		MouseEnter: nil | () -> (),
-		MouseLeave: nil | () -> (),
+		OnActivated: nil | () -> (),
+		OnHoverStart: nil | () -> (),
+		OnHoverEnd: nil | () -> (),
 
 		[typeof(Children)]: Fusion.Child?
 	}
@@ -41,9 +42,9 @@ local function Box(
 		BackgroundTransparency = props.Transparency or 1,
 		BackgroundColor3 = props.Colour,
 
-		Activated = props.Activated,
-		MouseEnter = props.MouseEnter,
-		MouseLeave = props.MouseLeave,
+		[OnEvent "Activated"] = props.OnActivated,
+		[OnEvent "MouseEnter"] = props.OnHoverStart,
+		[OnEvent "MouseLeave"] = props.OnHoverEnd,
 
 		[Children] = props[Children]
 	}

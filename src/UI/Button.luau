@@ -1,4 +1,5 @@
 --!strict
+--!nolint LocalShadow
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
 local TextService = game:GetService("TextService")
@@ -11,6 +12,7 @@ local Children = Fusion.Children
 local Styles = require(Package.UI.Styles)
 local Box = require(Package.UI.Box)
 local Stroke = require(Package.UI.Stroke)
+local CornerTypes = require(Package.UI.CornerTypes)
 local Gloss = require(Package.UI.Gloss)
 local Text = require(Package.UI.Text)
 
@@ -31,24 +33,24 @@ local function Button(
 		LayoutOrder: Fusion.UsedAs<number>?,
 		Size: Fusion.UsedAs<UDim2>?,
 
-		Activated: nil | () -> ()
+		OnActivated: nil | () -> ()
 	}
 ): Fusion.Child
-	scope = scope:innerScope {
+	local scope = scope:innerScope(CornerTypes, {
 		Box = Box,
 		Stroke = Stroke,
 		Gloss = Gloss,
-		Text = Text
-	}
+		Text = Text,
+	})
 
 	local realTextSize = scope:Computed(function(use)
 		return use(props.TextSize) or Styles.textSizes.buttons
 	end)
 
-	local textBoudns = scope:Computed(function(use)
+	local textBounds = scope:Computed(function(use)
 		return TextService:GetTextSize(
 			use(props.Text),
-			realTextSize,
+			use(realTextSize),
 			FONT,
 			Vector2.one * math.huge
 		)
@@ -59,7 +61,7 @@ local function Button(
 
 		LayoutOrder = props.LayoutOrder,
 		Size = props.Size or scope:Computed(function(use): UDim2
-			local bounds = use(textBoudns)
+			local bounds = use(textBounds)
 			return UDim2.fromOffset(
 				bounds.X + PADDING_HORIZONTAL * 2,
 				bounds.Y + PADDING_VERTICAL * 2
@@ -69,9 +71,11 @@ local function Button(
 		[Children] = {
 			scope:Box {
 				Name = "Body",
-				Activated = props.Activated,
+				OnActivated = props.OnActivated,
 
 				[Children] = {
+					scope:CornersMid(),
+
 					scope:Gloss {
 						Palette = props.Palette
 					},
@@ -80,10 +84,6 @@ local function Button(
 						Mode = Enum.ApplyStrokeMode.Border,
 						Top = props.Palette.stroke.light,
 						Bottom = props.Palette.stroke.mid
-					},
-
-					scope:New "UICorner" {
-						CornerRadius = Styles.corners.mid
 					},
 		
 					scope:Text {
@@ -106,14 +106,12 @@ local function Button(
 				ZIndex = -1,
 
 				[Children] = {
+					scope:CornersMid(),
+
 					scope:Stroke {
 						Mode = Enum.ApplyStrokeMode.Border,
 						Top = props.Palette.stroke.dark,
 						Bottom = props.Palette.stroke.dark
-					},
-
-					scope:New "UICorner" {
-						CornerRadius = Styles.corners.mid
 					}
 				}
 			}
