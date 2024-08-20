@@ -11,7 +11,7 @@ local Box = require(Package.UI.Box)
 local Button = require(Package.UI.Button)
 
 local function CloseButton(
-	scope: Fusion.Scope,
+	scope: Fusion.Scope<typeof(Fusion)>,
 	props: {
 		OnClick: () -> ()
 	}

@@ -3,11 +3,10 @@
 
 local Package = script.Parent.Parent
 
-local countUpIterator = require(Package.Libraries.countUpIterator)
 local Fusion = require(Package.Libraries.Fusion)
 local Children = Fusion.Children
 
-local Pane = require(Package.UI.Pane)
+local Box = require(Package.UI.Box)
 local Styles = require(Package.UI.Styles)
 local TextButton = require(Package.UI.TextButton)
 
@@ -17,14 +16,14 @@ export type Item = {
 }
 
 local function Inventory(
-	scope: Fusion.Scope,
+	scope: Fusion.Scope<typeof(Fusion)>,
 	props: {
 		Inventory: {Item},
 		DoClose: () -> ()
 	}
 ): Fusion.Child
 	scope = scope:innerScope {
-		Pane = Pane,
+		Box = Box,
 		TextButton = TextButton
 	}
 
@@ -41,7 +40,7 @@ local function Inventory(
 			slotIndex: number,
 			inventoryItem: Item
 		): (number, Fusion.Child)
-			return slotIndex, scope:Pane {
+			return slotIndex, scope:Box {
 				Name = `InventorySlot{slotIndex}`,
 				Size = UDim2.fromOffset(64, 64),
 
@@ -56,12 +55,12 @@ local function Inventory(
 				end,
 
 				[Children] = {
-					scope:Pane {
+					scope:Box {
 						Name = "Inner",
 						Padding = 8,
 
 						[Children] = {
-							scope:Pane {
+							scope:Box {
 								BackgroundTransparency = 0.5,
 								ZIndex = 
 								Background = INVENTORY_PALETTE.fill.light,
@@ -74,7 +73,7 @@ local function Inventory(
 		end
 	)
 
-	return scope:Pane {
+	return scope:Box {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(1, -12, 0, 12),
 		Size = UDim2.fromOffset(48, 48),

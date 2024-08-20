@@ -7,7 +7,7 @@ local Fusion = require(Package.Libraries.Fusion)
 local Children = Fusion.Children
 
 local function Stroke(
-	scope: Fusion.Scope,
+	scope: Fusion.Scope<typeof(Fusion)>,
 	props: {
 		Mode: Enum.ApplyStrokeMode,
 		Top: Fusion.UsedAs<Color3>,

@@ -8,7 +8,7 @@ local Fusion = require(Package.Libraries.Fusion)
 local Styles = require(Package.UI.Styles)
 
 local function Gloss(
-	scope: Fusion.Scope,
+	scope: Fusion.Scope<typeof(Fusion)>,
 	props: {
 		Palette: Styles.Palette
 	}
