@@ -9,9 +9,9 @@ local Children = Fusion.Children
 
 local Items = require(Package.Data.Items)
 
-local Box = require(Package.UI.Box)
 local Shared = require(Package.UI.Shared)
-local CornerTypes = require(Package.UI.CornerTypes)
+local Box = require(Package.UI.Components.Box)
+local CornerTypes = require(Package.UI.FX.CornerTypes)
 
 export type SlotData = {
 	Item: Fusion.UsedAs<Items.Item>,

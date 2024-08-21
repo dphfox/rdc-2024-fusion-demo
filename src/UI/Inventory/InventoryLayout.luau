@@ -7,7 +7,7 @@ local Package = script.Parent.Parent.Parent
 local Fusion = require(Package.Libraries.Fusion)
 local Children = Fusion.Children
 
-local Box = require(Package.UI.Box)
+local Box = require(Package.UI.Components.Box)
 
 local function InventoryLayout(
 	scope: Fusion.Scope,

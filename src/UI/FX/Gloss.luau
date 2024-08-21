@@ -1,21 +1,21 @@
 --!strict
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
-local Package = script.Parent.Parent
+local Package = script.Parent.Parent.Parent
 
 local Fusion = require(Package.Libraries.Fusion)
 
-local Styles = require(Package.UI.Styles)
+local Shared = require(Package.UI.Shared)
 
+--- A reflective gradient that adopts the current colour palette.
 local function Gloss(
 	scope: Fusion.Scope,
-	props: {
-		Palette: Styles.Palette
-	}
+	props: {}
 ): Fusion.Child
+	local palette = Shared.palette:now()
+
 	return scope:New "UIGradient" {
 		Color = scope:Computed(function(use)
-			local palette = use(props.Palette)
 			return ColorSequence.new {
 				ColorSequenceKeypoint.new(0, palette.fill.light),
 				ColorSequenceKeypoint.new(0.4, palette.fill.mid),

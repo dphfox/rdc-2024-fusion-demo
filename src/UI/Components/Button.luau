@@ -4,22 +4,24 @@
 
 local TextService = game:GetService("TextService")
 
-local Package = script.Parent.Parent
+local Package = script.Parent.Parent.Parent
 
 local Fusion = require(Package.Libraries.Fusion)
 local Children = Fusion.Children
 
 local Styles = require(Package.UI.Styles)
-local Box = require(Package.UI.Box)
-local Stroke = require(Package.UI.Stroke)
-local CornerTypes = require(Package.UI.CornerTypes)
-local Gloss = require(Package.UI.Gloss)
-local Text = require(Package.UI.Text)
+local Shared = require(Package.UI.Shared)
+local Box = require(Package.UI.Components.Box)
+local Text = error("TODO: implement this")--require(Package.UI.Components.Text)
+local Stroke = require(Package.UI.FX.Stroke)
+local CornerTypes = require(Package.UI.FX.CornerTypes)
+local Gloss = require(Package.UI.FX.Gloss)
 
 local FONT = Enum.Font.LuckiestGuy
 local PADDING_HORIZONTAL = 15
 local PADDING_VERTICAL = 8
 
+--- A glossy-styled button that adopts the current colour palette.
 local function Button(
 	scope: Fusion.Scope,
 	props: {
@@ -27,8 +29,6 @@ local function Button(
 
 		Text: Fusion.UsedAs<string>,
 		TextSize: Fusion.UsedAs<number>?,
-
-		Palette: Styles.Palette,
 
 		LayoutOrder: Fusion.UsedAs<number>?,
 		Size: Fusion.UsedAs<UDim2>?,
@@ -42,6 +42,8 @@ local function Button(
 		Gloss = Gloss,
 		Text = Text,
 	})
+
+	local palette = Shared.palette:now()
 
 	local realTextSize = scope:Computed(function(use)
 		return use(props.TextSize) or Styles.textSizes.buttons
@@ -76,14 +78,12 @@ local function Button(
 				[Children] = {
 					scope:CornersMid(),
 
-					scope:Gloss {
-						Palette = props.Palette
-					},
+					scope:Gloss {},
 
 					scope:Stroke {
 						Mode = Enum.ApplyStrokeMode.Border,
-						Top = props.Palette.stroke.light,
-						Bottom = props.Palette.stroke.mid
+						Top = palette.stroke.light,
+						Bottom = palette.stroke.mid
 					},
 		
 					scope:Text {
@@ -92,8 +92,7 @@ local function Button(
 		
 						Text = props.Text,
 						TextSize = realTextSize,
-						Font = FONT,
-						Colour = props.Palette.text
+						Font = FONT
 					}
 				}
 			},
@@ -102,7 +101,7 @@ local function Button(
 				Name = "Shadow",
 
 				Position = UDim2.fromOffset(0, 4),
-				Colour = props.Palette.stroke.dark,
+				Colour = palette.stroke.dark,
 				ZIndex = -1,
 
 				[Children] = {
@@ -110,8 +109,8 @@ local function Button(
 
 					scope:Stroke {
 						Mode = Enum.ApplyStrokeMode.Border,
-						Top = props.Palette.stroke.dark,
-						Bottom = props.Palette.stroke.dark
+						Top = palette.stroke.dark,
+						Bottom = palette.stroke.dark
 					}
 				}
 			}

@@ -10,13 +10,12 @@ local Children = Fusion.Children
 
 local Items = require(Package.Data.Items)
 
-local Box = require(Package.UI.Box)
 local Shared = require(Package.UI.Shared)
 local Styles = require(Package.UI.Styles)
-local CornerTypes = require(Package.UI.CornerTypes)
-local CloseButton = require(Package.UI.CloseButton)
-
-local InventoryBackplate = require(Package.UI.Inventory.InventoryBackplate)
+local Box = require(Package.UI.Components.Box)
+local CloseButton = require(Package.UI.Components.CloseButton)
+local Window = require(Package.UI.Components.Window)
+local CornerTypes = require(Package.UI.FX.CornerTypes)
 local InventoryLayout = require(Package.UI.Inventory.InventoryLayout)
 local InventorySlot = require(Package.UI.Inventory.InventorySlot)
 local InventoryPreview = require(Package.UI.Inventory.InventoryPreview)
@@ -41,8 +40,8 @@ local function Inventory(
 	local scope = scope:innerScope(CornerTypes, {
 		Box = Box,
 		CloseButton = CloseButton,
+		Window = Window,
 
-		InventoryBackplate = InventoryBackplate,
 		InventoryLayout = InventoryLayout,
 		InventorySlot = InventorySlot,
 		InventoryPreview = InventoryPreview,
@@ -58,12 +57,11 @@ local function Inventory(
 		Shared.palette
 		:is(Styles.colours.yellow)
 		:during(function()
-			return scope:InventoryBackplate {
+			return scope:Window {
 				[Children] = {
 					scope:CloseButton {
 						Position = UDim2.new(1, -12, 0, 12),
 						AnchorPoint = Vector2.new(0.5, 0.5),
-						Size = UDim2.fromOffset(48, 48),
 		
 						OnActivated = props.DoClose
 					},

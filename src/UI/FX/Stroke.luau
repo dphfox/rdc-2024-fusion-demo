@@ -2,13 +2,14 @@
 --!nolint LocalShadow
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
-local Package = script.Parent.Parent
+local Package = script.Parent.Parent.Parent
 
 local Fusion = require(Package.Libraries.Fusion)
 local Children = Fusion.Children
 
-local Gradient = require(Package.UI.Gradient)
+local Gradient = require(Package.UI.FX.Gradient)
 
+-- A thick stroke with configurable gradient colours.
 local function Stroke(
 	scope: Fusion.Scope,
 	props: {

@@ -7,15 +7,17 @@ local Package = script.Parent.Parent.Parent
 local Fusion = require(Package.Libraries.Fusion)
 local Children = Fusion.Children
 
-local Box = require(Package.UI.Box)
 local Shared = require(Package.UI.Shared)
-local Gradient = require(Package.UI.Gradient)
-local CornerTypes = require(Package.UI.CornerTypes)
-local Stroke = require(Package.UI.Stroke)
+local Box = require(Package.UI.Components.Box)
+local Gradient = require(Package.UI.FX.Gradient)
+local CornerTypes = require(Package.UI.FX.CornerTypes)
+local Stroke = require(Package.UI.FX.Stroke)
 
-local function InventoryBackplate(
+--- A large, centred rectangular box that adopts the current colour palette.
+local function Window(
 	scope: Fusion.Scope,
 	props: {
+		Name: Fusion.UsedAs<string>?,
 		[typeof(Children)]: Fusion.Child
 	}
 ): Fusion.Child
@@ -28,7 +30,7 @@ local function InventoryBackplate(
 	local palette = Shared.palette:now()
 
 	return scope:Box {
-		Name = "Inventory",
+		Name = props.Name or "Window",
 
 		Position = UDim2.fromScale(0.5, 0.5),
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -55,4 +57,4 @@ local function InventoryBackplate(
 	}
 end
 
-return InventoryBackplate
+return Window

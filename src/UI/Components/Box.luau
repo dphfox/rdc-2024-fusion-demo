@@ -1,12 +1,13 @@
 --!strict
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
-local Package = script.Parent.Parent
+local Package = script.Parent.Parent.Parent
 
 local Fusion = require(Package.Libraries.Fusion)
 local Children = Fusion.Children
 local OnEvent = Fusion.OnEvent
 
+--- A `Frame` with more convenient properties and behaviour.
 local function Box(
 	scope: Fusion.Scope,
 	props: {

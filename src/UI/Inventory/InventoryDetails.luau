@@ -7,9 +7,9 @@ local Package = script.Parent.Parent.Parent
 local Fusion = require(Package.Libraries.Fusion)
 local Children = Fusion.Children
 
-local Box = require(Package.UI.Box)
 local Shared = require(Package.UI.Shared)
-local CornerTypes = require(Package.UI.CornerTypes)
+local Box = require(Package.UI.Components.Box)
+local CornerTypes = require(Package.UI.FX.CornerTypes)
 
 local function InventoryDetails(
 	scope: Fusion.Scope,
