@@ -6,13 +6,13 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Fusion = require(ReplicatedStorage.Libraries.Fusion)
 local Children = Fusion.Children
-local peek = Fusion.peek
 
 local Shared = require(ReplicatedStorage.UI.Shared)
 local Box = require(ReplicatedStorage.UI.Components.Box)
 local Gradient = require(ReplicatedStorage.UI.FX.Gradient)
 local CornerTypes = require(ReplicatedStorage.UI.FX.CornerTypes)
 local Stroke = require(ReplicatedStorage.UI.FX.Stroke)
+local Wobbler = require(ReplicatedStorage.UI.FX.Wobbler)
 
 --- A large, centred rectangular box that adopts the current colour palette.
 local function Window(
@@ -26,17 +26,11 @@ local function Window(
 	local scope = scope:innerScope(CornerTypes, {
 		Box = Box,
 		Gradient = Gradient,
-		Stroke = Stroke
+		Stroke = Stroke,
+		Wobbler = Wobbler
 	})
 
 	local palette = Shared.palette:now()
-
-	local rotationSpring = scope:Spring(scope:Value(0), 30, 0.4)
-	scope:Observer(props.Visible):onChange(function()
-		if peek(props.Visible) then
-			rotationSpring:setVelocity(300)
-		end
-	end)
 
 	return scope:Box {
 		Name = props.Name or "Window",
@@ -44,7 +38,15 @@ local function Window(
 		Position = UDim2.fromScale(0.5, 0.5),
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Size = UDim2.fromOffset(600, 362),
-		Rotation = rotationSpring,
+
+		Rotation = scope:Wobbler {
+			RestAt = 0,
+			WobbleVelocity = 300,
+			SpringSpeed = 30,
+			SpringDamping = 0.4,
+			RespondTo = props.Visible,
+			ResponseType = "whenTruthy"
+		},
 
 		Visible = props.Visible,
 

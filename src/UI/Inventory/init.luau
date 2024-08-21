@@ -51,7 +51,7 @@ local function Inventory(
 	})
 
 	local selectedSlot = scope:Value(1)
-	local _selectedItem = scope:Computed(function(use)
+	local selectedItem = scope:Computed(function(use)
 		return use(props.Slots[use(selectedSlot)].Item)
 	end)
 
@@ -103,9 +103,13 @@ local function Inventory(
 								end
 							),
 		
-							Preview = scope:InventoryPreview {},
+							Preview = scope:InventoryPreview {
+								ActiveItem = selectedItem
+							},
 							
-							Details = scope:InventoryDetails {},
+							Details = scope:InventoryDetails {
+								ActiveItem = selectedItem
+							},
 						}
 					}
 				}

@@ -23,13 +23,11 @@ local function InventoryDetails(
 	local palette = Shared.palette:now()
 
 	return scope:Box {
-		Name = "Preview",
+		Name = "Details",
 		LayoutOrder = 1,
-
-		Colour = palette.stroke.light,
 		
 		[Children] = {
-			scope:CornersMid()
+			
 		}
 	}
 end

@@ -6,7 +6,6 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Fusion = require(ReplicatedStorage.Libraries.Fusion)
 local Children = Fusion.Children
-local peek = Fusion.peek
 
 local Items = require(ReplicatedStorage.Data.Items)
 
@@ -15,6 +14,7 @@ local Styles = require(ReplicatedStorage.UI.Styles)
 local Box = require(ReplicatedStorage.UI.Components.Box)
 local Text = require(ReplicatedStorage.UI.Components.Text)
 local CornerTypes = require(ReplicatedStorage.UI.FX.CornerTypes)
+local Wobbler = require(ReplicatedStorage.UI.FX.Wobbler)
 
 export type SlotData = {
 	Item: Fusion.UsedAs<Items.Item?>,
@@ -34,20 +34,14 @@ local function InventorySlot(
 ): Fusion.Child
 	local scope = scope:innerScope(CornerTypes, {
 		Box = Box,
-		Text = Text
+		Text = Text,
+		Wobbler = Wobbler
 	})
 
 	local palette = Shared.palette:now()
 
 	local hasItem = scope:Computed(function(use)
 		return use(props.Data.Amount) > 0 and use(props.Data.Item) ~= nil
-	end)
-
-	local tooltipRotation = scope:Spring(scope:Value(-15), 20, 0.5)
-	scope:Observer(props.Selected):onChange(function()
-		if peek(props.Selected) then
-			tooltipRotation:setVelocity(1000)
-		end
 	end)
 
 	local isHovering = scope:Value(false)
@@ -97,7 +91,7 @@ local function InventorySlot(
 						end), 50),
 
 						Image = scope:Computed(function(use)
-							local item = use(props.Data.Item) :: Items.Item?
+							local item = use(props.Data.Item)
 							if item == nil then
 								return ""
 							else
@@ -111,7 +105,15 @@ local function InventorySlot(
 						Position = UDim2.new(1, -16, 1, -8),
 						AnchorPoint = Vector2.new(0.5, 0.5),
 						Size = UDim2.fromOffset(40, 20),
-						Rotation = tooltipRotation,
+
+						Rotation = scope:Wobbler {
+							RestAt = -15,
+							WobbleVelocity = 1000,
+							SpringSpeed = 20,
+							SpringDamping = 0.5,
+							RespondTo = props.Selected,
+							ResponseType = "whenTruthy"
+						},
 
 						Visible = hasItem,
 
