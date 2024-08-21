@@ -30,12 +30,12 @@ local function InventoryDetails(
 		Text = Text
 	})
 
-	local palette = Shared.palette:now()
-
+	local detailsBoxSize = scope:Value(Vector2.zero)
 	local actionRowSize = scope:Value(Vector2.zero)
 
 	return scope:Box {
 		Name = "Details",
+		OutSize = detailsBoxSize,
 		
 		[Children] = Fusion.Child {
 			scope:New "UIListLayout" {
@@ -55,7 +55,7 @@ local function InventoryDetails(
 						Name = "Vertical Layout",
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						FillDirection = Enum.FillDirection.Vertical,
-						Padding = UDim.new(0, 8)
+						Padding = UDim.new(0, 4)
 					},
 
 					scope:New "UIFlexItem" {
@@ -88,7 +88,11 @@ local function InventoryDetails(
 							end
 						end),
 						TextSize = Styles.textSizes.body,
-						Font = Styles.fonts.body
+						Font = Styles.fonts.body,
+
+						WrapBounds = detailsBoxSize,
+						AlignX = Enum.TextXAlignment.Left,
+						AlignY = Enum.TextYAlignment.Top
 					},
 				}
 			},
@@ -107,7 +111,7 @@ local function InventoryDetails(
 						Name = "Horizontal Layout",
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						FillDirection = Enum.FillDirection.Horizontal,
-						Padding = UDim.new(0, 16),
+						Padding = UDim.new(0, 20),
 						[Out "AbsoluteContentSize"] = actionRowSize
 					},
 

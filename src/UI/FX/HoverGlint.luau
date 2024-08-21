@@ -9,7 +9,7 @@ local Children = Fusion.Children
 
 local Box = require(ReplicatedStorage.UI.Components.Box)
 
-local SPEED = 30
+local SPEED = 40
 
 -- A bright gradient that animates in when hovered.
 local function HoverGlint(

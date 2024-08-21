@@ -27,6 +27,9 @@ local function Text(
 		TextSize: Fusion.UsedAs<number>,
 		Font: Fusion.UsedAs<Enum.Font>,
 		TextColour: Fusion.UsedAs<Color3>?,
+		WrapBounds: Fusion.UsedAs<Vector2?>,
+		AlignX: Enum.TextXAlignment?,
+		AlignY: Enum.TextYAlignment?,
 
 		OnActivated: nil | () -> (),
 		OnHoverStart: nil | () -> (),
@@ -42,7 +45,7 @@ local function Text(
 			use(props.Text),
 			use(props.TextSize),
 			use(props.Font),
-			Vector2.one * math.huge
+			(use(props.WrapBounds) or Vector2.one * math.huge):Floor()
 		)
 	end)
 
@@ -63,6 +66,11 @@ local function Text(
 		Text = props.Text,
 		TextSize = props.TextSize,
 		TextColor3 = props.TextColour or palette.text,
+		TextWrapped = scope:Computed(function(use)
+			return use(props.WrapBounds) ~= nil
+		end),
+		TextXAlignment = props.AlignX,
+		TextYAlignment = props.AlignY,
 		Font = props.Font
 	}
 end

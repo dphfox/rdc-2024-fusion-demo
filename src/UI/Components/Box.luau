@@ -6,6 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Fusion = require(ReplicatedStorage.Libraries.Fusion)
 local Children = Fusion.Children
 local OnEvent = Fusion.OnEvent
+local Out = Fusion.Out
 
 --- A `Frame` with more convenient properties and behaviour.
 local function Box(
@@ -23,6 +24,8 @@ local function Box(
 
 		Transparency: Fusion.UsedAs<number>?,
 		Colour: Fusion.UsedAs<Color3>?,
+
+		OutSize: Fusion.Value<Vector2?>?,
 
 		OnActivated: nil | () -> (),
 		OnHoverStart: nil | () -> (),
@@ -48,6 +51,8 @@ local function Box(
 	
 			BackgroundTransparency = props.Transparency or if props.Colour ~= nil then 0 else 1,
 			BackgroundColor3 = props.Colour,
+
+			[Out "AbsoluteSize"] = props.OutSize,
 	
 			[OnEvent "MouseEnter"] = props.OnHoverStart,
 			[OnEvent "MouseLeave"] = props.OnHoverEnd,
@@ -68,6 +73,8 @@ local function Box(
 	
 			BackgroundTransparency = props.Transparency or if props.Colour ~= nil then 0 else 1,
 			BackgroundColor3 = props.Colour,
+
+			[Out "AbsoluteSize"] = props.OutSize,
 	
 			[OnEvent "Activated"] = props.OnActivated,
 			[OnEvent "MouseEnter"] = props.OnHoverStart,
