@@ -11,6 +11,7 @@ local Shared = require(Package.UI.Shared)
 local Box = require(Package.UI.Components.Box)
 local CornerTypes = require(Package.UI.FX.CornerTypes)
 
+--- The inventory pane housing title, description, and action buttons.
 local function InventoryDetails(
 	scope: Fusion.Scope,
 	props: {}

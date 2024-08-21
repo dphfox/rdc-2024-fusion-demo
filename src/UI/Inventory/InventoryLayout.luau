@@ -9,6 +9,9 @@ local Children = Fusion.Children
 
 local Box = require(Package.UI.Components.Box)
 
+--- Creates some panes in a three-way layout, with `Slots` across the top,
+--- `Preview` as a square in the bottom-left, and `Details` filling out the rest
+--- of the space in the bottom-right.
 local function InventoryLayout(
 	scope: Fusion.Scope,
 	props: {

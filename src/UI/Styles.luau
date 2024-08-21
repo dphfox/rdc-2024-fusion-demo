@@ -1,6 +1,7 @@
 --!strict
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
+--- A set of colours that can be used to theme UI components.
 export type Palette = {
 	fill: {
 		light: Color3,
@@ -19,7 +20,17 @@ local function Palette(x: Palette)
 	return x
 end
 
+--- Predefined colours and metrics for use throughout UI modules.
 return {
+	textSizes = {
+		title = 48,
+		bigger = 36,
+		header = 24,
+		buttons = 24,
+		tooltip = 18,
+		body = 16
+	},
+
 	colours = {
 		green = Palette {
 			fill = {
@@ -76,20 +87,6 @@ return {
 			},
 			text = Color3.fromHex("#362A00")
 		}
-	},
-
-	corners = {
-		mid = 16,
-		large = 32
-	},
-
-	textSizes = {
-		title = 48,
-		bigger = 36,
-		header = 24,
-		buttons = 24,
-		tooltip = 18,
-		body = 16
 	}
 }
 

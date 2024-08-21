@@ -28,6 +28,7 @@ export type SlotData = {
 
 local INVENTORY_SLOTS = 16
 
+--- The main inventory window.
 local function Inventory(
 	scope: Fusion.Scope,
 	props: {

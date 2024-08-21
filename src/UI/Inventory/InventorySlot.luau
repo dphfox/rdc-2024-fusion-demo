@@ -18,11 +18,13 @@ export type SlotData = {
 	Amount: Fusion.UsedAs<number>
 }
 
+--- A single item slot from the top half of the inventory window.
 local function InventorySlot(
 	scope: Fusion.Scope,
 	props: {
 		Index: number,
 		Data: SlotData,
+		Selected: Fusion.UsedAs<boolean>,
 
 		OnActivated: () -> ()
 	}

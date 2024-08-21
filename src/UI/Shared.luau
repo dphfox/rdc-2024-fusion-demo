@@ -9,6 +9,7 @@ local Contextual = Fusion.Contextual
 
 local Styles = require(Package.UI.Styles)
 
+--- Variables which are shared across all UI modules.
 return {
 	palette = Contextual(Styles.colours.platinum)
 }
