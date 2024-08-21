@@ -91,13 +91,6 @@ local function InventoryLayout(
 							FlexMode = Enum.UIFlexMode.Fill
 						},
 
-						scope:New "UIListLayout" {
-							Name = "Vertical Layout",
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							FillDirection = Enum.FillDirection.Vertical,
-							Padding = UDim.new(0, 4)
-						},
-
 						props.Details
 					}
 				}

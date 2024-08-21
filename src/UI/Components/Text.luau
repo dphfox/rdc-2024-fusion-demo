@@ -10,8 +10,8 @@ local Children = Fusion.Children
 
 local Shared = require(Package.UI.Shared)
 
---- A `Frame` with more convenient properties and behaviour.
-local function Box(
+--- An auto-sized text label that automatically adopts the current palette.
+local function Text(
 	scope: Fusion.Scope,
 	props: {
 		Name: Fusion.UsedAs<string>?,
@@ -67,4 +67,4 @@ local function Box(
 	}
 end
 
-return Box
+return Text

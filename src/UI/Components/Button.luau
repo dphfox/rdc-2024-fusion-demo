@@ -18,8 +18,8 @@ local CornerTypes = require(ReplicatedStorage.UI.FX.CornerTypes)
 local Gloss = require(ReplicatedStorage.UI.FX.Gloss)
 local HoverGlint = require(ReplicatedStorage.UI.FX.HoverGlint)
 
-local PADDING_HORIZONTAL = 15
-local PADDING_VERTICAL = 8
+local PADDING_HORIZONTAL = 16
+local PADDING_VERTICAL = 12
 
 --- A glossy-styled button that adopts the current colour palette.
 local function Button(

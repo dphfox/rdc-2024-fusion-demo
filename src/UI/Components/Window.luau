@@ -35,18 +35,18 @@ local function Window(
 	return scope:Box {
 		Name = props.Name or "Window",
 
-		Position = UDim2.fromScale(0.5, 0.5),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		Size = UDim2.fromOffset(600, 362),
-
-		Rotation = scope:Wobbler {
-			RestAt = 0,
-			WobbleVelocity = 300,
-			SpringSpeed = 30,
-			SpringDamping = 0.4,
+		Position = scope:Wobbler {
+			RestAt = UDim2.fromScale(0.5, 0.5),
+			WobbleVelocity = UDim2.fromOffset(0, -1000),
+			SpringSpeed = 25,
+			SpringDamping = 1,
 			RespondTo = props.Visible,
 			ResponseType = "whenTruthy"
 		},
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Size = UDim2.fromOffset(600, 362),
+
+		
 
 		Visible = props.Visible,
 
