@@ -32,20 +32,6 @@ return {
 	},
 
 	colours = {
-		green = Palette {
-			fill = {
-				light = Color3.fromHex("#9EFF23"),
-				mid = Color3.fromHex("#26EE46"),
-				dark = Color3.fromHex("#00CE46")
-			},
-			stroke = {
-				light = Color3.fromHex("#52BB00"),
-				mid = Color3.fromHex("#069941"),
-				dark = Color3.fromHex("#078338")
-			},
-			text = Color3.fromHex("#004019")
-		},
-
 		platinum = Palette {
 			fill = {
 				light = Color3.fromHex("#FFFFFF"),
@@ -86,6 +72,20 @@ return {
 				dark = Color3.fromHex("#A58308")
 			},
 			text = Color3.fromHex("#362A00")
+		},
+
+		green = Palette {
+			fill = {
+				light = Color3.fromHex("#9EFF23"),
+				mid = Color3.fromHex("#26EE46"),
+				dark = Color3.fromHex("#00CE46")
+			},
+			stroke = {
+				light = Color3.fromHex("#52BB00"),
+				mid = Color3.fromHex("#069941"),
+				dark = Color3.fromHex("#078338")
+			},
+			text = Color3.fromHex("#004019")
 		}
 	}
 }
