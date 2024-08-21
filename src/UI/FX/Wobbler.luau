@@ -29,12 +29,9 @@ local function Wobbler<Type, RespondTo>(
 	scope:Observer(props.RespondTo):onChange(function()
 		local value = peek(props.RespondTo)
 		local shouldRespond = 
-			if props.ResponseType == "always" then
-				true
-			elseif props.ResponseType == "whenTruthy" then
-				not not value
-			else
-				error("Invalid response type")
+			if props.ResponseType == "always" then true
+			elseif props.ResponseType == "whenTruthy" then not not value
+			else error("Invalid response type")
 
 		if shouldRespond then
 			wobbler:setVelocity(props.WobbleVelocity)
