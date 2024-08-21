@@ -24,7 +24,6 @@ local function InventoryDetails(
 
 	return scope:Box {
 		Name = "Details",
-		LayoutOrder = 1,
 		
 		[Children] = {
 			

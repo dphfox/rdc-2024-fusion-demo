@@ -39,7 +39,6 @@ local function InventoryPreview(
 
 	return scope:Box {
 		Name = "Preview",
-		LayoutOrder = 1,
 
 		Colour = palette.stroke.light,
 		

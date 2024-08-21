@@ -71,7 +71,7 @@ local function Title(
 						local isShadow = shadowDepth > 0
 
 						return scope:New "TextLabel" {
-							Name = props.Name or "Title",
+							Name = `Depth {shadowDepth}`,
 					
 							BackgroundTransparency = 1,
 							Position = UDim2.fromOffset(0, shadowDepth * 4),

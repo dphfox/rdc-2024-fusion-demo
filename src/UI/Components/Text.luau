@@ -47,7 +47,7 @@ local function Box(
 	end)
 
 	return scope:New "TextLabel" {
-		Name = props.Name or "Text",
+		Name = props.Name or props.Text,
 
 		BackgroundTransparency = 1,
 		Position = props.Position,

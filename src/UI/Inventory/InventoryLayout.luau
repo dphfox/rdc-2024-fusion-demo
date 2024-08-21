@@ -26,21 +26,24 @@ local function InventoryLayout(
 
 	return Fusion.Child {
 		scope:New "UIListLayout" {
+			Name = "Vertical Layout",
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Vertical,
 			Padding = UDim.new(0, 32)
 		},
 
 		scope:Box {
-			Name = "Slots",
+			Name = "Slots Area",
 			LayoutOrder = 1,
 
 			[Children] = Fusion.Child {
 				scope:New "UIFlexItem" {
+					Name = "Shrink To Fit",
 					FlexMode = Enum.UIFlexMode.Shrink
 				},
 
 				scope:New "UIGridLayout" {
+					Name = "Slot Grid",
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					CellSize = UDim2.fromOffset(64, 64),
 					CellPadding = UDim2.fromOffset(8, 8),
@@ -52,39 +55,44 @@ local function InventoryLayout(
 		},
 
 		scope:Box {
-			Name = "Bottom",
+			Name = "Bottom Area",
 			LayoutOrder = 2,
 
 			Size = UDim2.new(1, 0, 0, 128),
 
 			[Children] = Fusion.Child {
 				scope:New "UIListLayout" {
+					Name = "Horizontal Layout",
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					Padding = UDim.new(0, 16),
 					FillDirection = Enum.FillDirection.Horizontal
 				},
 
 				scope:Box {
-					Name = "Preview",
+					Name = "Preview Area",
 					LayoutOrder = 1,
 					
 					[Children] = Fusion.Child {
-						scope:New "UIAspectRatioConstraint" {},
+						scope:New "UIAspectRatioConstraint" {
+							Name = "Keep Square"
+						},
 
 						props.Preview
 					}
 				},
 
 				scope:Box {
-					Name = "Details",
+					Name = "Details Area",
 					LayoutOrder = 2,
 
 					[Children] = Fusion.Child {
 						scope:New "UIFlexItem" {
+							Name = "Grow to Fill",
 							FlexMode = Enum.UIFlexMode.Fill
 						},
 
 						scope:New "UIListLayout" {
+							Name = "Vertical Layout",
 							SortOrder = Enum.SortOrder.LayoutOrder,
 							FillDirection = Enum.FillDirection.Vertical,
 							Padding = UDim.new(0, 4)

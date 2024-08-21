@@ -35,7 +35,7 @@ local function Box(
 ): Fusion.Child
 	local passthroughInputs = (props.OnActivated or props.OnPressStart or props.OnPressEnd) == nil
 	if passthroughInputs  then
-		return scope:New "ImageLabel" {
+		return scope:New "Frame" {
 			Name = props.Name or "Box (passthrough inputs)",
 	
 			Position = props.Position,

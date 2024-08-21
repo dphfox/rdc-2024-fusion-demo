@@ -22,6 +22,8 @@ local function Stroke(
 		Gradient = Gradient
 	}
 	return scope:New "UIStroke" {
+		Name = "Stroke",
+		
 		ApplyStrokeMode = props.Mode,
 		Color = Color3.new(1, 1, 1),
 		Thickness = 4,

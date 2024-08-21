@@ -14,6 +14,7 @@ local function Gradient(
 	}
 ): Fusion.Child
 	return scope:New "UIGradient" {
+		Name = "Gradient",
 		Color = scope:Computed(function(use)
 			return ColorSequence.new(
 				use(props.Top),

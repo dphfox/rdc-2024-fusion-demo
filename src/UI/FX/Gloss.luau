@@ -15,6 +15,7 @@ local function Gloss(
 	local palette = Shared.palette:now()
 
 	return scope:New "UIGradient" {
+		Name = "Gloss",
 		Color = scope:Computed(function(use)
 			return ColorSequence.new {
 				ColorSequenceKeypoint.new(0, palette.fill.light),
