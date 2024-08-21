@@ -1,9 +1,9 @@
 --!strict
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
-local Package = script.Parent.Parent.Parent
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Fusion = require(Package.Libraries.Fusion)
+local Fusion = require(ReplicatedStorage.Libraries.Fusion)
 
 --- A series of corner rounding components that can be added to a Fusion scope.
 local CornerTypes = {}

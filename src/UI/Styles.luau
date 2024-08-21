@@ -22,6 +22,10 @@ end
 
 --- Predefined colours and metrics for use throughout UI modules.
 return {
+	fonts = {
+		title = Enum.Font.LuckiestGuy
+	},
+
 	textSizes = {
 		title = 48,
 		bigger = 36,

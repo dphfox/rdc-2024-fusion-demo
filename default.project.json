@@ -1,12 +1,30 @@
 {
   "name": "RDC 2024 - Fusion Demo",
+  "emitLegacyScripts": false,
   "tree": {
     "$className": "DataModel",
 
     "ReplicatedStorage": {
-      "Shared": {
-        "$path": "src"
+	  "$ignoreUnknownInstances": false,
+	  "Client": {
+        "$path": "src/Client"
+      },
+      "Data": {
+        "$path": "src/Data"
+      },
+	  "Libraries": {
+        "$path": "src/Libraries"
+      },
+	  "UI": {
+        "$path": "src/UI"
       }
-    }
+    },
+
+	"ServerStorage": {
+	  "$ignoreUnknownInstances": false,
+	  "Stories": {
+        "$path": "src/Stories"
+      }
+	}
   }
 }

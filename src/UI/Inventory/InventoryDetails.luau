@@ -2,14 +2,14 @@
 --!nolint LocalShadow
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
-local Package = script.Parent.Parent.Parent
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Fusion = require(Package.Libraries.Fusion)
+local Fusion = require(ReplicatedStorage.Libraries.Fusion)
 local Children = Fusion.Children
 
-local Shared = require(Package.UI.Shared)
-local Box = require(Package.UI.Components.Box)
-local CornerTypes = require(Package.UI.FX.CornerTypes)
+local Shared = require(ReplicatedStorage.UI.Shared)
+local Box = require(ReplicatedStorage.UI.Components.Box)
+local CornerTypes = require(ReplicatedStorage.UI.FX.CornerTypes)
 
 --- The inventory pane housing title, description, and action buttons.
 local function InventoryDetails(

@@ -1,11 +1,11 @@
 --!strict
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
-local Package = script.Parent.Parent.Parent
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Fusion = require(Package.Libraries.Fusion)
+local Fusion = require(ReplicatedStorage.Libraries.Fusion)
 
-local Shared = require(Package.UI.Shared)
+local Shared = require(ReplicatedStorage.UI.Shared)
 
 --- A reflective gradient that adopts the current colour palette.
 local function Gloss(

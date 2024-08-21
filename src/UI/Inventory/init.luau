@@ -2,46 +2,47 @@
 --!nolint LocalShadow
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
-local Package = script.Parent.Parent
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Fusion = require(Package.Libraries.Fusion)
+local Fusion = require(ReplicatedStorage.Libraries.Fusion)
 local peek = Fusion.peek
 local Children = Fusion.Children
 
-local Items = require(Package.Data.Items)
+local Items = require(ReplicatedStorage.Data.Items)
 
-local Shared = require(Package.UI.Shared)
-local Styles = require(Package.UI.Styles)
-local Box = require(Package.UI.Components.Box)
-local CloseButton = require(Package.UI.Components.CloseButton)
-local Window = require(Package.UI.Components.Window)
-local CornerTypes = require(Package.UI.FX.CornerTypes)
-local InventoryLayout = require(Package.UI.Inventory.InventoryLayout)
-local InventorySlot = require(Package.UI.Inventory.InventorySlot)
-local InventoryPreview = require(Package.UI.Inventory.InventoryPreview)
-local InventoryDetails = require(Package.UI.Inventory.InventoryDetails)
+local Shared = require(ReplicatedStorage.UI.Shared)
+local Styles = require(ReplicatedStorage.UI.Styles)
+local Box = require(ReplicatedStorage.UI.Components.Box)
+local Title = require(ReplicatedStorage.UI.Components.Title)
+local CloseButton = require(ReplicatedStorage.UI.Components.CloseButton)
+local Window = require(ReplicatedStorage.UI.Components.Window)
+local CornerTypes = require(ReplicatedStorage.UI.FX.CornerTypes)
+local InventoryLayout = require(ReplicatedStorage.UI.Inventory.InventoryLayout)
+local InventorySlot = require(ReplicatedStorage.UI.Inventory.InventorySlot)
+local InventoryPreview = require(ReplicatedStorage.UI.Inventory.InventoryPreview)
+local InventoryDetails = require(ReplicatedStorage.UI.Inventory.InventoryDetails)
 
 export type SlotData = {
-	Item: Fusion.UsedAs<Items.Item>,
+	Item: Fusion.UsedAs<Items.Item?>,
 	Amount: Fusion.UsedAs<number>
 }
-
-local INVENTORY_SLOTS = 16
 
 --- The main inventory window.
 local function Inventory(
 	scope: Fusion.Scope,
 	props: {
+		Visible: Fusion.UsedAs<boolean>,
 		Slots: {SlotData},
 		DoClose: () -> ()
 	}
 ): Fusion.Child
-	assert(#props.Slots == INVENTORY_SLOTS, "Incorrect number of inventory slots provided")
+	assert(#props.Slots == Shared.INVENTORY_SLOTS, "Incorrect number of inventory slots provided")
 
 	local scope = scope:innerScope(CornerTypes, {
 		Box = Box,
 		CloseButton = CloseButton,
 		Window = Window,
+		Title = Title,
 
 		InventoryLayout = InventoryLayout,
 		InventorySlot = InventorySlot,
@@ -59,20 +60,21 @@ local function Inventory(
 		:is(Styles.colours.yellow)
 		:during(function()
 			return scope:Window {
+				Visible = props.Visible,
 				[Children] = {
 					scope:CloseButton {
-						Position = UDim2.new(1, -12, 0, 12),
+						Position = UDim2.new(1, -6, 0, 6),
 						AnchorPoint = Vector2.new(0.5, 0.5),
 		
 						OnActivated = props.DoClose
 					},
 		
-					-- scope:Title {
-					-- 	Position = UDim2.new(0.5, 0, 0, 12),
-					-- 	AnchorPoint = Vector2.new(0.5, 0.5),
+					scope:Title {
+						Position = UDim2.new(0.5, 0, 0, 12),
+						AnchorPoint = Vector2.new(0.5, 0.5),
 		
-					-- 	Text = "Inventory"
-					-- },
+						Text = "Inventory"
+					},
 		
 					scope:Box {
 						Name = "Contents",

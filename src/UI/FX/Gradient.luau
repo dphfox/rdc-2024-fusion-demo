@@ -1,9 +1,9 @@
 --!strict
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
-local Package = script.Parent.Parent.Parent
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Fusion = require(Package.Libraries.Fusion)
+local Fusion = require(ReplicatedStorage.Libraries.Fusion)
 
 -- A matte vertical gradient with tweakable top and bottom colours.
 local function Gradient(

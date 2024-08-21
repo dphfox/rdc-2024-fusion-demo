@@ -2,19 +2,19 @@
 --!nolint LocalShadow
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
-local Package = script.Parent.Parent.Parent
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Fusion = require(Package.Libraries.Fusion)
+local Fusion = require(ReplicatedStorage.Libraries.Fusion)
 local Children = Fusion.Children
 
-local Items = require(Package.Data.Items)
+local Items = require(ReplicatedStorage.Data.Items)
 
-local Shared = require(Package.UI.Shared)
-local Box = require(Package.UI.Components.Box)
-local CornerTypes = require(Package.UI.FX.CornerTypes)
+local Shared = require(ReplicatedStorage.UI.Shared)
+local Box = require(ReplicatedStorage.UI.Components.Box)
+local CornerTypes = require(ReplicatedStorage.UI.FX.CornerTypes)
 
 export type SlotData = {
-	Item: Fusion.UsedAs<Items.Item>,
+	Item: Fusion.UsedAs<Items.Item?>,
 	Amount: Fusion.UsedAs<number>
 }
 
@@ -44,15 +44,22 @@ local function InventorySlot(
 		OnActivated = props.OnActivated,
 
 		[Children] = {
+			scope:CornersMid(),
 			scope:Box {
 				Name = "Inner",
 				Padding = 8,
 
 				[Children] = {
+
 					scope:Box {
-						BackgroundTransparency = 0.5,
-						ZIndex = error("TODO: not implemented"),
+						Transparency = 0.5,
+						ZIndex = -1,
 						Colour = palette.fill.light,
+						Visible = props.Selected,
+
+						Position = UDim2.fromScale(0.5, 0.5),
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Size = UDim2.new(1, -8, 1, -8),
 
 						[Children] = {
 							scope:CornersFull()

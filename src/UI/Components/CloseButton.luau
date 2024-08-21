@@ -2,14 +2,15 @@
 --!nolint LocalShadow
 -- Licensed under MIT from RDC 2024: Using UI Frameworks to Conquer Code Complexity
 
-local Package = script.Parent.Parent.Parent
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Fusion = require(Package.Libraries.Fusion)
+local Fusion = require(ReplicatedStorage.Libraries.Fusion)
 local Children = Fusion.Children
 
-local Styles = require(Package.UI.Styles)
-local Box = require(Package.UI.Components.Box)
-local Button = require(Package.UI.Components.Button)
+local Styles = require(ReplicatedStorage.UI.Styles)
+local Shared = require(ReplicatedStorage.UI.Shared)
+local Box = require(ReplicatedStorage.UI.Components.Box)
+local Button = require(ReplicatedStorage.UI.Components.Button)
 
 --- A `Button` configured with a standard 'red X' look and feel.
 local function CloseButton(
@@ -32,14 +33,18 @@ local function CloseButton(
 		AnchorPoint = props.AnchorPoint,
 		Size = UDim2.fromOffset(48, 48),
 
-		[Children] = scope:Button {
-			Text = "X",
-			TextSize = Styles.textSizes.bigger,
-			Palette = Styles.colours.red,
-			Size = UDim2.fromScale(1, 1),
-			
-			OnActivated = props.OnActivated
-		}
+		[Children] = 
+			Shared.palette
+			:is(Styles.colours.red)
+			:during(function()
+				return scope:Button {
+					Text = "X",
+					TextSize = Styles.textSizes.bigger,
+					Size = UDim2.fromScale(1, 1),
+					
+					OnActivated = props.OnActivated
+				}
+			end)
 	}
 end
 

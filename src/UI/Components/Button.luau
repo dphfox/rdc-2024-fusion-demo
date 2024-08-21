@@ -4,20 +4,20 @@
 
 local TextService = game:GetService("TextService")
 
-local Package = script.Parent.Parent.Parent
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local Fusion = require(Package.Libraries.Fusion)
+local Fusion = require(ReplicatedStorage.Libraries.Fusion)
 local Children = Fusion.Children
 
-local Styles = require(Package.UI.Styles)
-local Shared = require(Package.UI.Shared)
-local Box = require(Package.UI.Components.Box)
-local Text = error("TODO: implement this")--require(Package.UI.Components.Text)
-local Stroke = require(Package.UI.FX.Stroke)
-local CornerTypes = require(Package.UI.FX.CornerTypes)
-local Gloss = require(Package.UI.FX.Gloss)
+local Styles = require(ReplicatedStorage.UI.Styles)
+local Shared = require(ReplicatedStorage.UI.Shared)
+local Box = require(ReplicatedStorage.UI.Components.Box)
+local Text = require(ReplicatedStorage.UI.Components.Text)
+local Stroke = require(ReplicatedStorage.UI.FX.Stroke)
+local CornerTypes = require(ReplicatedStorage.UI.FX.CornerTypes)
+local Gloss = require(ReplicatedStorage.UI.FX.Gloss)
+local HoverGlint = require(ReplicatedStorage.UI.FX.HoverGlint)
 
-local FONT = Enum.Font.LuckiestGuy
 local PADDING_HORIZONTAL = 15
 local PADDING_VERTICAL = 8
 
@@ -30,8 +30,10 @@ local function Button(
 		Text: Fusion.UsedAs<string>,
 		TextSize: Fusion.UsedAs<number>?,
 
-		LayoutOrder: Fusion.UsedAs<number>?,
+		Position: Fusion.UsedAs<UDim2>?,
+		AnchorPoint: Fusion.UsedAs<Vector2>?,
 		Size: Fusion.UsedAs<UDim2>?,
+		LayoutOrder: Fusion.UsedAs<number>?,
 
 		OnActivated: nil | () -> ()
 	}
@@ -41,6 +43,7 @@ local function Button(
 		Stroke = Stroke,
 		Gloss = Gloss,
 		Text = Text,
+		HoverGlint = HoverGlint
 	})
 
 	local palette = Shared.palette:now()
@@ -53,15 +56,18 @@ local function Button(
 		return TextService:GetTextSize(
 			use(props.Text),
 			use(realTextSize),
-			FONT,
+			Styles.fonts.title,
 			Vector2.one * math.huge
 		)
 	end)
 
+	local isPressing = scope:Value(false)
+
 	return scope:Box {
 		Name = props.Name or "Button",
 
-		LayoutOrder = props.LayoutOrder,
+		Position = props.Position,
+		AnchorPoint = props.AnchorPoint,
 		Size = props.Size or scope:Computed(function(use): UDim2
 			local bounds = use(textBounds)
 			return UDim2.fromOffset(
@@ -69,16 +75,37 @@ local function Button(
 				bounds.Y + PADDING_VERTICAL * 2
 			)
 		end),
+		LayoutOrder = props.LayoutOrder,
+		OnActivated = props.OnActivated,
+
+		OnPressStart = function()
+			isPressing:set(true)
+		end,
+		OnPressEnd = function()
+			isPressing:set(false)
+		end,
 
 		[Children] = {
 			scope:Box {
 				Name = "Body",
-				OnActivated = props.OnActivated,
+				PassthroughInputs = true,
+
+				Position = scope:Spring(scope:Computed(function(use)
+					return UDim2.fromOffset(
+						0,
+						if use(isPressing) then 4 else 0
+					)
+				end), 40),
+
+				Colour = Color3.new(1, 1, 1),
 
 				[Children] = {
 					scope:CornersMid(),
 
 					scope:Gloss {},
+					scope:HoverGlint {
+						Decorations = scope:CornersMid()
+					},
 
 					scope:Stroke {
 						Mode = Enum.ApplyStrokeMode.Border,
@@ -92,13 +119,14 @@ local function Button(
 		
 						Text = props.Text,
 						TextSize = realTextSize,
-						Font = FONT
+						Font = Styles.fonts.title
 					}
 				}
 			},
 
 			scope:Box {
 				Name = "Shadow",
+				PassthroughInputs = true,
 
 				Position = UDim2.fromOffset(0, 4),
 				Colour = palette.stroke.dark,
