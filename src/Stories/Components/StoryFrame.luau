@@ -15,7 +15,7 @@ local function Box(
 	}
 ): Fusion.Child
 	return scope:New "Frame" {
-		Name = "StoryFrame",
+		Name = "Story Frame",
 		Parent = props.Parent,
 
 		BackgroundColor3 = Color3.fromHex("A7B9CA"),

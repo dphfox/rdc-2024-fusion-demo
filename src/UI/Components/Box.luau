@@ -13,8 +13,6 @@ local function Box(
 	props: {
 		Name: Fusion.UsedAs<string>?,
 
-		PassthroughInputs: boolean?,
-
 		Position: Fusion.UsedAs<UDim2>?,
 		AnchorPoint: Fusion.UsedAs<Vector2>?,
 		Size: Fusion.UsedAs<UDim2>?,
@@ -35,7 +33,8 @@ local function Box(
 		[typeof(Children)]: Fusion.Child?
 	}
 ): Fusion.Child
-	if props.PassthroughInputs == true then
+	local passthroughInputs = (props.OnActivated or props.OnPressStart or props.OnPressEnd) == nil
+	if passthroughInputs  then
 		return scope:New "ImageLabel" {
 			Name = props.Name or "Box (passthrough inputs)",
 	
@@ -72,8 +71,14 @@ local function Box(
 	
 			[OnEvent "Activated"] = props.OnActivated,
 			[OnEvent "MouseEnter"] = props.OnHoverStart,
-			[OnEvent "MouseLeave"] = props.OnHoverEnd,
-			[OnEvent "MouseLeave"] = props.OnPressEnd,
+			[OnEvent "MouseLeave"] = function()
+				if props.OnHoverEnd ~= nil then
+					props.OnHoverEnd()
+				end
+				if props.OnPressEnd ~= nil then
+					props.OnPressEnd()
+				end
+			end,
 			[OnEvent "MouseButton1Down"] = props.OnPressStart,
 			[OnEvent "MouseButton1Up"] = props.OnPressEnd,
 	

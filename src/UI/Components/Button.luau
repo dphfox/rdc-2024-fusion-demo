@@ -88,7 +88,6 @@ local function Button(
 		[Children] = {
 			scope:Box {
 				Name = "Body",
-				PassthroughInputs = true,
 
 				Position = scope:Spring(scope:Computed(function(use)
 					return UDim2.fromOffset(
@@ -126,7 +125,6 @@ local function Button(
 
 			scope:Box {
 				Name = "Shadow",
-				PassthroughInputs = true,
 
 				Position = UDim2.fromOffset(0, 4),
 				Colour = palette.stroke.dark,

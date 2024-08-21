@@ -32,8 +32,7 @@ local function HoverGlint(
 	end)
 
 	return scope:Box {
-		Name = "HoverGlint",
-		PassthroughInputs = true,
+		Name = "Hover Glint",
 		
 		Colour = Color3.new(1, 1, 1),
 		Transparency = scope:Spring(transparency, SPEED),

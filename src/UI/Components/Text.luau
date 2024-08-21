@@ -26,6 +26,7 @@ local function Box(
 		Text: Fusion.UsedAs<string>,
 		TextSize: Fusion.UsedAs<number>,
 		Font: Fusion.UsedAs<Enum.Font>,
+		TextColour: Fusion.UsedAs<Color3>?,
 
 		OnActivated: nil | () -> (),
 		OnHoverStart: nil | () -> (),
@@ -61,7 +62,7 @@ local function Box(
 
 		Text = props.Text,
 		TextSize = props.TextSize,
-		TextColor3 = palette.text,
+		TextColor3 = props.TextColour or palette.text,
 		Font = props.Font
 	}
 end

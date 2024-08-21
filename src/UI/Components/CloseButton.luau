@@ -28,7 +28,7 @@ local function CloseButton(
 	}
 
 	return scope:Box {
-		Name = "CloseButton",
+		Name = "Close Button",
 		Position = props.Position,
 		AnchorPoint = props.AnchorPoint,
 		Size = UDim2.fromOffset(48, 48),

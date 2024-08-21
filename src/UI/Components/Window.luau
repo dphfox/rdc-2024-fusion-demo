@@ -32,7 +32,6 @@ local function Window(
 	local palette = Shared.palette:now()
 
 	local rotationSpring = scope:Spring(scope:Value(0), 30, 0.4)
-
 	scope:Observer(props.Visible):onChange(function()
 		if peek(props.Visible) then
 			rotationSpring:setVelocity(300)
