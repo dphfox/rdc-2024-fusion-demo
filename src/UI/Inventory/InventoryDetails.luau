@@ -21,7 +21,11 @@ local CornerTypes = require(ReplicatedStorage.UI.FX.CornerTypes)
 local function InventoryDetails(
 	scope: Fusion.Scope,
 	props: {
-		ActiveItem: Fusion.UsedAs<Items.Item?>
+		ActiveItem: Fusion.UsedAs<Items.Item?>,
+
+		DoPlant: () -> (),
+		DoGive: () -> (),
+		DoThrow: () -> ()
 	}
 ): Fusion.Child
 	local scope = scope:innerScope(CornerTypes, {
@@ -119,7 +123,8 @@ local function InventoryDetails(
 					:during(function()
 						return scope:Button {
 							LayoutOrder = 1,
-							Text = "Plant"
+							Text = "Plant",
+							OnActivated = props.DoPlant
 						}
 					end),
 
@@ -129,12 +134,14 @@ local function InventoryDetails(
 						return {
 							scope:Button {
 								LayoutOrder = 2,
-								Text = "Give"
+								Text = "Give",
+								OnActivated = props.DoGive
 							},
 		
 							scope:Button {
 								LayoutOrder = 3,
-								Text = "Throw"
+								Text = "Throw",
+								OnActivated = props.DoThrow
 							}
 						}
 					end)

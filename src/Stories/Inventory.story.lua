@@ -65,6 +65,15 @@ return function(
 				Slots = slots,
 				DoClose = function()
 					visible:set(false)
+				end,
+				DoPlant = function(slotIndex)
+					print(`Planting item from slot {slotIndex}`)
+				end,
+				DoGive = function(slotIndex)
+					print(`Giving item from slot {slotIndex}`)
+				end,
+				DoThrow = function(slotIndex)
+					print(`Throwing item from slot {slotIndex}`)
 				end
 			}
 		}

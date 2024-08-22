@@ -33,7 +33,11 @@ local function Inventory(
 	props: {
 		Visible: Fusion.UsedAs<boolean>,
 		Slots: {SlotData},
-		DoClose: () -> ()
+
+		DoClose: () -> (),
+		DoPlant: (slotIndex: number) -> (),
+		DoGive: (slotIndex: number) -> (),
+		DoThrow: (slotIndex: number) -> ()
 	}
 ): Fusion.Child
 	assert(#props.Slots == Shared.INVENTORY_SLOTS, "Incorrect number of inventory slots provided")
@@ -108,7 +112,16 @@ local function Inventory(
 							},
 							
 							Details = scope:InventoryDetails {
-								ActiveItem = selectedItem
+								ActiveItem = selectedItem,
+								DoPlant = function()
+									props.DoPlant(peek(selectedSlot))
+								end,
+								DoGive = function()
+									props.DoGive(peek(selectedSlot))
+								end,
+								DoThrow = function()
+									props.DoThrow(peek(selectedSlot))
+								end
 							},
 						}
 					}
