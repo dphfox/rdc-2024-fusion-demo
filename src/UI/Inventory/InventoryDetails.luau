@@ -41,8 +41,7 @@ local function InventoryDetails(
 			scope:New "UIListLayout" {
 				Name = "Vertical Layout",
 				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical,
-				Padding = UDim.new(0, 8)
+				FillDirection = Enum.FillDirection.Vertical
 			},
 
 			scope:Box {
@@ -55,7 +54,7 @@ local function InventoryDetails(
 						Name = "Vertical Layout",
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						FillDirection = Enum.FillDirection.Vertical,
-						Padding = UDim.new(0, 4)
+						Padding = UDim.new(0, 2)
 					},
 
 					scope:New "UIFlexItem" {

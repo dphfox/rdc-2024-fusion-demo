@@ -10,6 +10,11 @@ local Children = Fusion.Children
 
 local Shared = require(Package.UI.Shared)
 
+local FONT_SCALES = {
+	[Enum.Font.Cartoon] = 1.209,
+	[Enum.Font.LuckiestGuy] = 1.000
+}
+
 --- An auto-sized text label that automatically adopts the current palette.
 local function Text(
 	scope: Fusion.Scope,
@@ -40,10 +45,14 @@ local function Text(
 ): Fusion.Child
 	local palette = Shared.palette:now()
 
+	local realTextSize = scope:Computed(function(use)
+		return FONT_SCALES[use(props.Font)] * use(props.TextSize)
+	end)
+
 	local textBounds = scope:Computed(function(use)
 		return TextService:GetTextSize(
 			use(props.Text),
-			use(props.TextSize),
+			use(realTextSize),
 			use(props.Font),
 			(use(props.WrapBounds) or Vector2.one * math.huge):Floor()
 		)
@@ -64,7 +73,7 @@ local function Text(
 		Visible = props.Visible,
 
 		Text = props.Text,
-		TextSize = props.TextSize,
+		TextSize = realTextSize,
 		TextColor3 = props.TextColour or palette.text,
 		TextWrapped = scope:Computed(function(use)
 			return use(props.WrapBounds) ~= nil
