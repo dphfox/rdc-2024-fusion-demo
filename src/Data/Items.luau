@@ -14,27 +14,21 @@ local function Item(
 end
 
 return {
-	strawberry = Item {
-		name = "Strawberry",
-		description = "Most would argue it tastes more like a berry than a straw, but that's probably preferable.",
-		icon = "rbxassetid://534533607"
+	magnet = Item {
+		name = "Magnet",
+		description = "If you're not a fan of magnets, I'd consider us polar opposites.",
+		icon = "rbxassetid://18974110121"
 	},
 
-	pepper = Item {
-		name = "Pepper",
-		description = "Whether in a dish or in a spray, one thing can be said for sure about the pepper: it isn't salt.",
-		icon = "rbxassetid://8981932662"
+	book = Item {
+		name = "Book",
+		description = "The cover makes it hard to know if you're reading it upside down or not, but nobody else will know either.",
+		icon = "rbxassetid://18974108003"
 	},
 
-	watermelon = Item {
-		name = "Watermelon",
-		description = "In an attempt to modernise, some Halloween parties have started to bob for watermelons instead.",
-		icon = "rbxassetid://13259903532"
-	},
-
-	tomato = Item {
-		name = "Tomato",
-		description = "Scientists wonder: is it a fruit or a vegetable? We threw several at them until they stopped asking.",
-		icon = "rbxassetid://9147788334"
+	board = Item {
+		name = "Board",
+		description = "A crucial part of building any home. Not this one though, you found it on the curb.",
+		icon = "rbxassetid://18974105514"
 	}
 }

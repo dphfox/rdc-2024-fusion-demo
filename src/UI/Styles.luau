@@ -33,7 +33,7 @@ return {
 		header = 24,
 		buttons = 24,
 		tooltip = 18,
-		body = 16
+		body = 15
 	},
 
 	colours = {

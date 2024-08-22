@@ -35,17 +35,14 @@ return function(
 		}
 	end
 
-	slots[1].Item:set(Items.pepper)
-	slots[1].Amount:set(36)
+	slots[1].Item:set(Items.magnet)
+	slots[1].Amount:set(13)
 
-	slots[2].Item:set(Items.watermelon)
-	slots[2].Amount:set(24)
+	slots[2].Item:set(Items.book)
+	slots[2].Amount:set(8)
 
-	slots[3].Item:set(Items.strawberry)
-	slots[3].Amount:set(12)
-
-	slots[4].Item:set(Items.tomato)
-	slots[4].Amount:set(6)
+	slots[3].Item:set(Items.board)
+	slots[3].Amount:set(5)
 
 	scope:StoryFrame {
 		Parent = parent,

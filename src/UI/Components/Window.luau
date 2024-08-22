@@ -44,7 +44,7 @@ local function Window(
 			ResponseType = "whenTruthy"
 		},
 		AnchorPoint = Vector2.new(0.5, 0.5),
-		Size = UDim2.fromOffset(600, 362),
+		Size = UDim2.fromOffset(600, 370),
 
 		
 

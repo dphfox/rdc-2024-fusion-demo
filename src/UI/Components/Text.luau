@@ -66,7 +66,7 @@ local function Text(
 		AnchorPoint = props.AnchorPoint,
 		Size = scope:Computed(function(use)
 			local bounds = use(textBounds)
-			return UDim2.fromOffset(bounds.X, bounds.Y)
+			return UDim2.fromOffset(bounds.X, bounds.Y + 1)
 		end),
 		ZIndex = props.ZIndex,
 		LayoutOrder = props.LayoutOrder,
